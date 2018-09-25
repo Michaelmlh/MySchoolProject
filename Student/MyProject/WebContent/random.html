@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>按条件生成要查询的宿舍</title>
+    <style>
+        /* form {
+            border: 1px solid black;
+        } */
+        .form {
+            width: 50%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            position: relative;
+            /* border: 1px dotted black; */
+        }
+        .form div {
+            font-weight: 600;
+        }
+        .content{
+            border: 1px dotted black;
+            position:relative;
+            width: 50%;
+            
+            overflow: auto;
+            margin: 0 auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <div style="margin-bottom: 5px;">不做任何指定</div>
+        <button onclick="sendMsg(0)">随机生成宿舍号</button>
+    </div>
+    <div class="form">
+        <div>指定班级</div>
+        <form id="referClass">
+            <table>
+                <tr>
+                    <td>请输入班级号(格式形如'1,2')：</td>
+                    <td>
+                        <input type="text" name="class">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="随机生成宿舍号" onclick="sendMsg(1)">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="form">
+        <div>指定宿舍</div>
+        <form id="referDepart">
+            <table>
+                <tr>
+                    <td>请输入宿舍号(格式形如'B130,B131')：</td>
+                    <td>
+                        <input type="text" name="depart">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="随机生成宿舍号" onclick="sendMsg(2)">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="form">
+        <div>指定宿舍和班级</div>
+        <form id="referClassAndDepart">
+            <table>
+                <tr>
+                    <td>请输入班级号(格式形如'1,2')：</td>
+                    <td>
+                        <input type="text" name="class"> </td>
+                </tr>
+                <tr>
+                    <td>请输入宿舍号(格式形如'N01B001,N01B002')：</td>
+                    <td>
+                        <input type="text" name="depart">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="随机生成宿舍号" onclick="sendMsg(3)">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="content">
+
+    </div>
+    <script>
+        //限定输入字符串格式
+        var reg_class = /^(\d+,)*(\d+)$/;
+        var reg_depart = /^(([NE]\d+[AB][1-6][0-4]\d),)*(([NE]\d+[AB][1-6][0-4]\d))$/i; 
+        var xhr = new XMLHttpRequest();
+        var uri = 'random';
+        function sendMsg(id) {
+            xhr.open("POST", uri, true);
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xhr.responseType = "json";
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    var content = document.querySelector(".content");
+                    var target = xhr.response;
+                    content.innerHTML = "<b>要查的宿舍为：</b>"
+                    for(var name in target){
+                        content.innerHTML += "<br>班号：" + name + "<br>宿舍号：";
+                        for(var i = 0; i < target[name].length; i ++){
+                            content.innerHTML += target[name][i] + "  "; 
+                        }                        
+                    }
+                }
+            }
+            switch (id) {
+                case 0:
+                    xhr.send(null);
+                    break;
+                case 1:
+                    var form = document.querySelector("#referClass");
+                    if(!reg_class.test(form.class.value)){
+                        alert("请按提示输入合法字符串");
+                        return;
+                    }
+                    var message = "class=" + form.class.value;                               
+                    xhr.send(message);
+                    form.class.value = "";
+                    break;
+                case 2:
+                    var form = document.querySelector("#referDepart");
+                    if(!reg_depart.test(form.depart.value)){
+                        alert("请按提示输入合法字符串");
+                        return;
+                    }
+                    var message = "depart=" + form.depart.value;                    
+                    xhr.send(message);
+                    form.depart.value = "";
+                    break;
+                case 3:
+                    var form = document.querySelector("#referClassAndDepart");
+                    var classes = form.class.value;
+                    var departs = form.depart.value;
+                    if(!reg_class.test(classes) || !reg_depart.test(departs)){
+                        alert("请按提示输入合法字符串");
+                        return;
+                    }                    
+                    var message = "class=" + classes + "&depart=" + departs;
+                    xhr.send(message);
+                    form.class.value = "";
+                    form.depart.value = "";
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

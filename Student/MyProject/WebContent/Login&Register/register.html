@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2_01_1会员注册</title>
+<script language="javascript">
+	function check(theform){
+		if(theform.username.value==""){
+			alert("用户名不能为空！");
+			theform.username.focus();
+			return  false;
+		}
+		if(theform.userpwd.value!=theform.userpwd2.value){
+			alert("两次密码不一致，请重新输入！");
+			theform.userpwd2.value=="";
+			theform.userpwd2.focus();
+			return false;
+		}
+		return true;
+	}
+	function checkAddress(){
+		var reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+		if(!reg.test(document.form1.mail.value)){
+			alert("请填写正确的邮箱地址！");
+			document.form1.mail.focus();
+			return false;
+		}
+		return true;
+	}
+	
+</script>
+</head>
+<body>
+    <div>
+        <img alt="LOGO" src="images/1.jpg" width="200" height="60"/>
+        <font size="5" face="黑体">欢迎注册</font>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <font size="3" color="gray">已有账号？ </font>
+        <font size="3" face="黑体"><a href="01_1.html">请登陆</a></font>
+    </div>
+    <hr width=80% color="gray" noshade/>
+    <h1 align="center">欢迎来到会员注册界面</h1> 
+    <form name="form1" action="../../Checkin" method="post" >
+        <table align="center" border=0 width=80%>
+            <tr>
+                <td align = "right" width=30%>用&nbsp;&nbsp;户&nbsp;&nbsp;名：</td> 
+                <td><input type="text" name="username">*</td>
+            </tr>
+            <tr>
+                <td align = "right">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                <td><input type="password" name="userpwd" >*</td>
+            </tr>
+            <tr>  
+                <td align = "right">密码确认：</td>
+                <td><input type="password" name="userpwd2" onBlur="check(form1)">*</td>
+            </tr>
+            <tr>
+                <td align = "right">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                <td><input type="radio" name=sex value=男 checked>男&nbsp;&nbsp;<input type="radio" name=sex value=女>女</td>
+            </tr>
+            <tr>
+                <td align = "right">出生年月：</td>
+                <td><input type = "text" name="birthYear">
+                <select name="birthDay">
+                    <option>01<option>02<option>03<option>04<option>05<option>06
+                    <option>07<option>08<option>09<option>10<option>11<option>12
+                </select>月</td>
+            </tr>
+            <tr>
+                <td align = "right">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</td>
+                <td><input type="text" name="mail" onBlur="checkAddress()">*</td>
+            </tr>
+             <tr>
+                <td align = "right" rowspan=2>个人爱好：</td>
+                <td>
+                    <input type ="checkbox" name=love value="电脑网络">电脑网络&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type ="checkbox" name=love value="影视娱乐">影视娱乐&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type ="checkbox" name=love value="棋牌娱乐">棋牌娱乐
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type ="checkbox" name=love value="读书读报">读书读报&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type ="checkbox" name=love value="美酒佳肴">美酒佳肴&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type ="checkbox" name=love value="绘画书法">绘画书法
+                </td>
+            </tr>
+            <tr>
+            	<td align="right">
+            		个人说明：
+            	</td>
+            	<td align="left">
+            		<textarea rows="8" cols="30" name="discribe"></textarea>
+            	</td>
+           	</tr>
+            <tr>
+                <td align="center" colspan=2>
+                    <input type="reset">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="提交">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <hr width=80% color="gray"/>
+</body>
+</html>

@@ -56,10 +56,10 @@ public class 权限 implements Serializable{
 	}
 	public int getIntLevel() {
 		switch (level) {
-		case "ϵͳ����Ա": return 1;
-		case "�������Ա": return 2;
-		case "�༶������": return 3;
-		case "ѧ��      ":return 4;
+		case "系统管理员": return 1;
+		case "卫生检察员": return 2;
+		case "班级负责人": return 3;
+		case "学生":return 4;
 		}
 		return 0;
 	}

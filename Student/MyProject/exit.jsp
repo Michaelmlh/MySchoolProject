@@ -9,7 +9,7 @@
 <body>
 <%
 session.invalidate();
-response.sendRedirect("frame1.jsp");
+response.sendRedirect("frame2.jsp");
 %>
 </body>
 </html>

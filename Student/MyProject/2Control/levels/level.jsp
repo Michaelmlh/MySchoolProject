@@ -15,6 +15,12 @@ body{
 	height: 750px;
 	position: relative;
 }
+body {
+	background-image: url(../../images/bg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-attachment: fixed; /* 自动调整 */
+}
 .buton{
 	display: inline-block;
 	position: relative;
@@ -26,7 +32,7 @@ body{
 <% 权限 user=((权限)session.getAttribute("user"));%>
 <div style="width: 100%;height: 100%;">
 <div  style="width: 100%;height: 50%;">
-<table border="1" align="center" width="100%">
+<table border="1" align="center" width="100%" cellpadding="0" cellspacing="0">
   	<caption>
     	<H2>权限管理</H2>
   	</caption>

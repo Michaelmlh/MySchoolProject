@@ -1,20 +1,19 @@
 package com.jsp.servlet;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import entity.*;
 
 public class Answer {//����Ӧ����
-	private List<学生> stu;
+	private ArrayList<学生> stu;
 	private ArrayList<班级> clas;
 	private ArrayList<宿舍> room; 
 	private ArrayList<宿舍卫生> en;
-	public List<学生> getStu() {
+	public ArrayList<学生> getStu() {
 		return stu;
 	}
-	public void setStu(List<学生> stu2) {
-		this.stu = stu2;
+	public void setStu(ArrayList<学生> stu) {
+		this.stu = stu;
 	}
 	public ArrayList<班级> getClas() {
 		return clas;

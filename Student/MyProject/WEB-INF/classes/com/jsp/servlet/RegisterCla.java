@@ -33,8 +33,8 @@ public class RegisterCla extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
 		String sql="insert into 班级  values (?,?)";
 		session.setAttribute("rs", false);
@@ -43,15 +43,13 @@ public class RegisterCla extends HttpServlet {
 			PreparedStatement presta = db.PreparedStatement (sql);
 			presta.setString(1,request.getParameter("no"));
 			presta.setString(2,request.getParameter("name"));
-			if(presta.executeUpdate()==1)//��ӳɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				response.getWriter().print("<script>alert(\"注册成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("/2Control/classes/registerRS.jsp").forward(request, response);
 	}
 
 	/**

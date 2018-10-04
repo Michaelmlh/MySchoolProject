@@ -1,6 +1,5 @@
 package queryDepart;
 import java.util.*;
-import java.util.function.BiFunction;
 import java.sql.*;
 import db.Db;
 public class Query_Class {
@@ -42,21 +41,18 @@ public class Query_Class {
 	//ȫ�����,����Ҫ�������
 	public Map<String , ArrayList<String>> getAllRandomMap() {
 		Map<String , ArrayList<String>> newmap = new HashMap<>(map);
-		newmap.replaceAll(new BiFunction<String, ArrayList<String>, ArrayList<String>>() {
-			@Override
-			public ArrayList<String> apply(String key, ArrayList<String> value) {
-				if(value.size() <= 2)
-					return value;
-				else
-				{
-					ArrayList<String> list = new ArrayList<>();
-					//����õ��ظ��� �����
-					String one = value.remove((int)(Math.random() * value.size()));
-					String two = value.remove((int)(Math.random() * value.size()));
-					value.add(one);value.add(two);
-					list.add(one);list.add(two);
-					return list;
-				}
+		newmap.replaceAll((key,value)->{
+			if(value.size() <= 2)
+				return value;
+			else
+			{
+				ArrayList<String> list = new ArrayList<>();
+				//����õ��ظ��� �����
+				String one = value.remove((int)(Math.random() * value.size()));
+				String two = value.remove((int)(Math.random() * value.size()));
+				value.add(one);value.add(two);
+				list.add(one);list.add(two);
+				return list;
 			}
 		});
 		return newmap;				

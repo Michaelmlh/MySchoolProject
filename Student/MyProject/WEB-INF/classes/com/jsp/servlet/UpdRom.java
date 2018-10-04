@@ -34,6 +34,7 @@ public class UpdRom extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
 		session.setAttribute("rs", false);
 		String sql="update 宿舍 set 人数=? where 宿舍号=?";
@@ -42,15 +43,14 @@ public class UpdRom extends HttpServlet {
 			PreparedStatement presta = db.PreparedStatement (sql);
 			presta.setString(1,request.getParameter("Name"));
 			presta.setString(2,request.getParameter("No"));
-			if(presta.executeUpdate()==1)//�޸ĳɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				response.getWriter().println("<script>alert(\"修改成功\");location.href=\"2Control/rooms/room.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+				response.getWriter().println("<script>alert(\"修改失败\");location.href=\"2Control/rooms/room.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
+			response.getWriter().println("<script>alert(\"修改失败\");location.href=\"2Control/rooms/room.jsp\";</script>");
 		}
-		request.getRequestDispatcher("/2Control/rooms/updRS.jsp").forward(request, response);
 	}
 
 	/**

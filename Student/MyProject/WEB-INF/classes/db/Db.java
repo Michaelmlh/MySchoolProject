@@ -8,8 +8,8 @@ public class Db {
 	public Db() {
 		String driverName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		String dbURL="jdbc:sqlserver://localhost:1433;DatabaseName=Student";
-		String userName="guest06";
-		String userPwd="mlh12345";
+		String userName="sa";
+		String userPwd="chentailiang.123";
 		try {
 			Class.forName(driverName);
 			dbConn=DriverManager.getConnection(dbURL,userName,userPwd);

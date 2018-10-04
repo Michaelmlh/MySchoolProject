@@ -33,21 +33,20 @@ public class DelStu extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
 		session.setAttribute("rs", false);
 		Db db=new Db();
 		try {
 			PreparedStatement presta = db.PreparedStatement ("delete from 学生  where 学号=?");
 			presta.setString(1, request.getParameter("no"));
-			if(presta.executeUpdate()==1)//ɾ���ɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				response.getWriter().println("<script>alert(\"修改成功\");location.href=\"2Control/students/student.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+			response.getWriter().println("<script>alert(\"修改失败\");location.href=\"2Control/students/student.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("/2Control/students/delete.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package com.jsp.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,14 +36,14 @@ public class RegisterStu extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
 		session.setAttribute("rs", false);
 		String sqlStu="insert into 学生  values (?,?,?,?,?,?,?,?,?,?)";
 		Db db=new Db();
-		String birthDate=request.getParameter("birthYear")+"-"+request.getParameter("birthMonth")+"-"+request.getParameter("birthDay");
-		String intoDate=request.getParameter("intoYear")+"-"+request.getParameter("intoMonth")+"-"+request.getParameter("intoDay");
-//		System.out.println(intoDate);
-//		System.out.println(birthDate);
+		String birthDate=request.getParameter("birth");
+		String intoDate=request.getParameter("intoDate");
+		PrintWriter out = response.getWriter();
 		try {
 			PreparedStatement presta = db.PreparedStatement (sqlStu);
 			presta.setString(1,request.getParameter("no"));
@@ -56,15 +57,16 @@ public class RegisterStu extends HttpServlet {
 			presta.setString(9,request.getParameter("roomNo"));
 			presta.setString(10,request.getParameter("bedNo"));
 			
-			if(presta.executeUpdate()==1)//��ӳɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				out.println("<script>alert(\"注册成功！\");location.href=\"2Control/students/student.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
-		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
+				out.println("<script>alert(\"注册失败！\");history.back();</script>");
+		} catch (SQLException e) {	
+			
 			e.printStackTrace();
+			out.println("<script>alert(\"注册失败！\");history.back();</script>");
 		}
-		request.getRequestDispatcher("/2Control/students/registerRS.jsp").forward(request, response);
+		//request.getRequestDispatcher("/2Control/students/registerRS.jsp").forward(request, response);
 	}
 
 	/**

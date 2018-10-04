@@ -15,18 +15,15 @@ body{
 	height: 750px;
 	position: relative;
 }
-.buton{
-	display: inline-block;
-	position: relative;
-	top: 10px;
-}
+
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/body.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/table.css">
 </head>
 <body>
 <% 权限 user=((权限)session.getAttribute("user"));%> 
-<div style="width: 100%;height: 100%;">
-<div  style="width: 100%;height: 50%;">
-<table border="1" align="center" width="100%">
+
+<table border="1" align="center" width="100%" cellpadding="0" cellspacing="0">
   	<caption>
     	<H2>宿舍信息管理</H2>
   	</caption>
@@ -52,20 +49,16 @@ body{
 					<td height="22" align="center"><%=rs.getString("人数")+""%></td>
 					<%if(user.canDo(1)){//仅系统管理员可操作 %>
 					<td height="22" align="center">
-						<div class="buton"><form action="update.jsp?no=<%=rs.getString("宿舍号")%>" method="post" target="control"><input type="submit" value="修改"></form></div>
-						<div class="buton"><form action="../../DelRom?no=<%=rs.getString("宿舍号")%>" method="post"  target="control"><input type="submit" value="删除"></form></div>
+						<form style="display: inline-block; margin-top: 0px;margin-bottom: 0px;" action="${pageContext.request.contextPath }/2Control/rooms/update.jsp?no=<%=rs.getString("宿舍号")%>" method="post"><input class="tablebutton" type="submit" value="修改"></form>
+						<form style="display: inline-block; margin-top: 0px;margin-bottom: 0px;" action="${pageContext.request.contextPath }/DelRom?no=<%=rs.getString("宿舍号")%>" method="post"><input class="tablebutton" type="submit" value="删除"></form>
 					</td>
 					<%} %>
 				</tr>
 	<%		} //while%>
 </table>
-</div>
 <%if(user.canDo(1)){//仅系统管理员可查看 %>
-<div class="buton"><form action="register.jsp" target="control"><input type="submit" value="注册新宿舍"></form></div>
+<div class="buton"><form action="${pageContext.request.contextPath }/2Control/rooms/register.jsp" target="control"><input type="submit" value="注册新宿舍"></form></div>
 <%} %>
-<div  style="width: 100%;height: 50%;border:1px dotted black ;box-sizing: border-box;">
-<iframe name="control" frameborder="0" height="100%" width="100%"></iframe>
-</div>
-</div>
+
 </body>
 </html>

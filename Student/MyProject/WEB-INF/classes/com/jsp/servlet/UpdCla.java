@@ -36,6 +36,7 @@ public class UpdCla extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		response.setContentType("text/html; charset=utf-8");
 		session.setAttribute("rs", false);
 		String sql="update 班级  set 班名=? where 班号=?";
 		Db db=new Db();
@@ -43,15 +44,14 @@ public class UpdCla extends HttpServlet {
 			PreparedStatement presta = db.PreparedStatement (sql);
 			presta.setString(1,request.getParameter("clasName"));
 			presta.setString(2,request.getParameter("clasNo"));
-			if(presta.executeUpdate()==1)//�޸ĳɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				response.getWriter().print("<script>alert(\"修改成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
+			response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		}
-		request.getRequestDispatcher("/2Control/classes/updRS.jsp").forward(request, response);
 	}
 
 	/**

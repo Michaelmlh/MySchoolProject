@@ -59,7 +59,7 @@ import entity.权限;
 				权限 user=new 权限(username,password,rs.getString(3),rs.getString(4));
 				session.setAttribute("user", user);//记录登录人
 //				response.sendRedirect(request.getContextPath()+"/frame.jsp");//跳转到主操作界面�
-				response.sendRedirect(request.getContextPath()+"/frame1.jsp");//2018-9-28
+				response.sendRedirect(request.getContextPath()+"/frame2.jsp");//2018-9-28
 			}else{
 				session.setAttribute("username", username);
 				request.getRequestDispatcher("/Login&Register/error.jsp").forward(request,response);//response.sendRedirect("Error"); 

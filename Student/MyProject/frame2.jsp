@@ -6,88 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>学生宿舍卫生管理系统</title>
-<link rel="stylesheet" href="resources/boostrap/css/bootstrap.min.css">
-<style type="text/css">
-body {
-	background-image: url(images/bg.jpg);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	background-attachment: fixed; /* 自动调整 */
-}
-
-#lunbobox {
-	width: 500px;
-	height: 300px;
-	position: relative;
-}
-
-.lunbo {
-	width: 500px;
-	height: 300px;
-}
-
-.lunbo img {
-	width: 500px;
-	height: 300px;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-
-#lunbobox ul {
-	width: 285px;
-	position: absolute;
-	bottom: 10px;
-	right: 0px;
-	z-index: 5;
-}
-
-#lunbobox ul li {
-	cursor: pointer;
-	width: 10px;
-	height: 4px;
-	border: 1px solid #cccccc;
-	float: left;
-	list-style: none;
-	background: #cccccc;
-	text-align: center;
-	margin: 0px 5px 0px 0px;
-}
-
-#toleft {
-	display: none;
-	width: 30px;
-	height: 100px;
-	font-size: 40px;
-	line-height: 100px;
-	text-align: center;
-	color: #f4f4f4;
-	position: absolute;
-	top: 90px;
-	left: 12px;
-	cursor: pointer;
-	z-index: 99;
-	opacity: 0.4;
-}
-
-#toright {
-	display: none;
-	width: 30px;
-	height: 100px;
-	font-size: 40px;
-	line-height: 100px;
-	text-align: center;
-	color: #f4f4f4;
-	/*background:#cccccc;
-	*/
-	position: absolute;
-	top: 90px;
-	right: 0px;
-	cursor: pointer;
-	z-index: 99;
-	opacity: 0.4;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/boostrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/body.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/frame2.css">
 </head>
 <body>
 	<%
@@ -121,10 +42,10 @@ body {
 					class="navbar-brand hidden-xs" style="padding-top: 0px"> <img
 						src="images/LOGO.PNG" alt="" style="height: 45px;">
 				</a></li>
-				<%
+				 <%
 					if (user != null) { //登录后操作
 				%>
-				<li role="presentation" class="dropdown"><a href="#"
+				<li role="presentation" class="dropdown hidden-sm hidden-md hidden-lg"><a href="#"
 					class="drowndown-toggle" data-toggle="dropdown" role="button">信息查询
 						<span class="caret"></span>
 				</a>
@@ -137,7 +58,7 @@ body {
 				<%
 					if (user.canDo(3)) {//班级负责人及以上权限能操作
 				%>
-				<li role="presentation" class="dropdown"><a href="#"
+				<li role="presentation" class="dropdown hidden-sm hidden-md hidden-lg"><a href="#"
 					class="drowndown-toggle" data-toggle="dropdown" role="button">信息管理
 						<span class="caret"></span>
 				</a>
@@ -162,6 +83,7 @@ body {
 					}
 				%>
 			</ul>
+			
 			<div class=" hidden-xs navbar-text"
 				style="padding-left: 50px; line-height: 100%">
 				<font size="5" face="黑体">学生宿舍卫生管理系统</font>
@@ -177,8 +99,49 @@ body {
 				</div>
 			</div>
 		</div>
-
 		<div class="row">
+			<%
+				if (user != null) {
+			%>
+			<div class="col-sm-3 navigater hidden-xs">
+
+				<ul>
+					<li>信息查询</li>
+					<li><a href="StuInfo" target="_blank">个人详情</a></li>
+					<li><a href="1Query/bulkQuery.html" target="_blank">批量查询</a></li>
+					<li><a href="1Query/statisticQuery.html" target="main">统计查询</a>
+					</li>
+				</ul>
+				<%
+					if (user.canDo(3)) {
+				%>
+				<ul>
+					<li>信息管理</li>
+					<li><a href="2Control/students/student.jsp" target="_blank">学生管理</a>
+					</li>
+					<li><a href="2Control/classes/class.jsp" target="_blank">班级管理</a>
+					</li>
+					<li><a href="2Control/rooms/room.jsp" target="_blank">宿舍管理</a>
+					</li>
+					<li><a href="2Control/environments/environment.jsp"
+						target="_blank">卫生管理</a></li>
+					<%
+						if (user.canDo(1)) {//仅系统管理员可查看
+					%>
+					<li><a href="2Control/levels/level.jsp" target="_blank">权限管理</a>
+					</li>
+					<%
+						}
+					%>
+				</ul>
+				<%
+					}
+				%>
+
+			</div>
+			<%
+				}
+			%>
 			<div class="col-sm-6  hidden-xs hidden-sm" style="opacity: 0.6">
 				<div class="middle_right">
 					<div id="lunbobox">
@@ -207,9 +170,9 @@ body {
 					</div>
 				</div>
 			</div>
-			<%
+		 <%
 				if (user == null) {
-			%>
+			%> 
 			<div class="col-sm-4 col-sm-push-1">
 				<form action="${pageContext.request.contextPath }/servlet/Login"
 					method="POST">
@@ -241,7 +204,7 @@ body {
 			<%
 				} else {
 			%>
-			<div class="col-sm-4 col-sm-push-1">
+			<div class="col-sm-3 ">
 				<form action="${pageContext.request.contextPath }/Updpsd"
 					method="POST">
 					<dl class="form-group">
@@ -273,7 +236,7 @@ body {
 
 			<%
 				}
-			%>
+			%> 
 
 		</div>
 
@@ -282,8 +245,8 @@ body {
 
 
 	</div>
-	<script src="resources/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/boostrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/boostrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		///轮播
 		$(function() {

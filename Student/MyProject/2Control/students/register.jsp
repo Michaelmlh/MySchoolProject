@@ -1,115 +1,98 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
+
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script language="javascript">
-	function check(theform){
-		if(theform.no.value==""){
-			alert("学号不能为空！");
-			theform.no.focus();
-			return  false;
-		}
-		if(theform.name.value==""){
-			alert("学生名字不能为空！");
-			theform.name.focus();
-			return  false;
-		}
-		return true;
-	}	
-	function Date(theselect,dayselect){
-		var month=theselect.value;
-		/* console.log("dayselect=",dayselect," month=",month); */
-		var i=0;
-		dayselect.options.length=0;
-		for(i=1;i<=28;i++){
-			dayselect.options[i-1]=new Option(i, i);
-		}
-		switch(month){
-		case "1":case "3":case "5":case "7":case "8":case "10":case "12":{
-			for(i=29;i<=31;i++){
-				dayselect.options[i-1]=new Option(i, i);
-			}
-			break;
-		}
-		case "4":case "6":case "9":case "11":{
-			for(i=29;i<=30;i++){
-				dayselect.options[i-1]=new Option(i, i);
-			}
-			break;
-		}
-		case "2":
-			break;
-		
-		}
-	}
-</script>
+
+<style type="text/css">
+.form-group .input-group {
+	margin-top: 5px;
+}
+</style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/body.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/boostrap/css/bootstrap.min.css">
 </head>
+
 <body>
-    <h1 align="center">注册新学生</h1> 
-    <form name="form1" action="../../RegisterStu" method="post" >
-        <table align="center" border=0 width=80%>
-            <tr>
-                <td align = "right" width=45%>学号：</td> 
-                <td><input type="text" name="no">*</td>
-            </tr>
-            <tr>
-                <td align = "right" width=45%>姓名：</td> 
-                <td><input type="text" name="name" onBlur="check(form1)">*</td>
-            </tr>
-            <tr>
-                <td align = "right">性别：</td>
-                <td><input type="radio" name=sex value=男 checked>男<input type="radio" name=sex value=女>女</td>
-            </tr>
-            <tr>
-                <td align = "right">出生年月：</td>
-                <td><input type = "text" name="birthYear" value="1990">
-                <select name="birthMonth" onchange="Date(this,birthDay)">
-                    <%for(int i=1;i<=12;i++){ %>
-                		<option value="<%=i %>"><%=i %></option>
-                	<%} %>
-                </select>月
-                <select name="birthDay" id="birthDay"><option value="1">1</option>		</select>日</td>
-            </tr>
-            <tr>
-                <td align = "right">民族：</td>
-                <td><input type="text" name="nation"></td>
-            </tr>
-            <tr>
-                <td align = "right">入学年份：</td>
-                <td><input type = "text" name="intoYear" value="1990">
-                <select name="intoMonth" onchange="Date(this,intoDay)">
-                	<%for(int i=1;i<=12;i++){ %>
-                		<option value="<%=i %>"><%=i %></option>
-                	<%} %>
-                </select>月
-                <select name="intoDay" id="intoDay"><option value="1">1</option>		</select>日</td>
-            </tr>
-            <tr>
-                <td align = "right">联系方式：</td>
-                <td><input type="text" name="phone"></td>
-            </tr>
-            <tr>
-                <td align = "right">班号：</td>
-                <td><input type="text" name="clasNo"></td>
-            </tr>
-            <tr>
-                <td align = "right">宿舍号：</td>
-                <td><input type="text" name="roomNo"></td>
-            </tr>
-            <tr>
-                <td align = "right">床位号：</td>
-                <td><input type="text" name="bedNo"></td>
-            </tr>
-            <tr>
-                <td align="center" colspan=2>
-                    <input type="reset">
-                    
-                    <input type="submit" value="提交">
-                </td>
-            </tr>
-        </table>
-    </form>
+	<div class="container">
+		<h1 align="center">注册新学生</h1>
+		<div class="col-md-4 col-md-push-4">
+			<form name="form1"
+				action="${pageContext.request.contextPath }/RegisterStu"
+				method="post">
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
+						<input type="text" name="no" required pattern="\d{9}"
+							placeholder="如：202161011" class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+						<input type="text" name="name" required placeholder="如：张三"
+							class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+						<input type="text" name="sex" required placeholder="如：男"
+							pattern="[男女]" class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">出生日期</span> <input type="date"
+							name="birth" required placeholder="如：1998-02-20"
+							class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</span>
+						<input type="text" required placeholder="如：汉" " name="nation"
+							class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">入学年份</span> <input type="date"
+							name="intoDate" required class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">联系方式</span> <input type="text"
+							name="phone" required class="form-control"
+							placeholder="如：手机号,qq,邮箱">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">班&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
+						<input type="text" name="clasNo" placeholder="如：0001"
+							pattern="\d+" required class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">宿&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;舍</span>
+						<input type="text" name="roomNo" placeholder="如：N10B130"
+							pattern="(([NE]\d+[AB][1-6][0-4]\d),)*(([NE]\d+[AB][1-6][0-4]\d))"
+							required class="form-control">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位</span>
+						<input type="text" name="bedNo" placeholder="如：1" pattern="[1-6]"
+							required class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-6">
+						<input type="reset" style="margin: 0 30%"
+							class="btn btn-info btn-sm" value="重置">
+					</div>
+					<div class="col-xs-6">
+						<input type="submit" style="margin: 0 30%"
+							class="btn btn-info btn-sm" value="提交">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script
+		src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath }/resources/boostrap/js/bootstrap.min.js"></script>
 </body>
+
 </html>

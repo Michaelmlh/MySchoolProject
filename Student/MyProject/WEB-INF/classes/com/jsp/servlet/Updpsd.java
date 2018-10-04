@@ -57,10 +57,10 @@ public class Updpsd extends HttpServlet {
 			if( flag2 == 1) { //修改密码成功
 				session.invalidate();
 //				response.sendRedirect(request.getContextPath() + "/frame1.jsp");
-				out.println("<script>alert(\"修改成功！\");location.href=\"frame1.jsp\";</script>");
+				out.println("<script>alert(\"修改成功！\");location.href=\"frame2.jsp\";</script>");
 			}
 		}else {
-			out.println("<script>alert(\"请输入正确的密码\");location.href=\"frame1.jsp\";</script>");
+			out.println("<script>alert(\"请输入正确的密码\");location.href=\"frame2.jsp\";</script>");
 		}
 	}
 

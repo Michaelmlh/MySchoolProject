@@ -42,14 +42,13 @@ public class DelCla extends HttpServlet {
 			PreparedStatement presta =  db.PreparedStatement ("delete from 班级  where 班号=?");
 			presta.setString(1, request.getParameter("no"));
 			if(presta.executeUpdate()==1)//ɾ���ɹ�
-				session.setAttribute("rs", true);
+				response.getWriter().print("<script>alert(\"删除成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
+			response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		}
-		request.getRequestDispatcher("/2Control/classes/delete.jsp").forward(request, response);
 	}
 
 	/**

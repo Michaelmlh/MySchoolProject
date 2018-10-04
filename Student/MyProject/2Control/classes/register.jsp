@@ -4,21 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script language="javascript">
-	function check(theform) {
-		if (theform.no.value == "") {
-			alert("班号不能为空！");
-			theform.no.focus();
-			return false;
-		}
-		if (theform.name.value == "") {
-			alert("班级名称不能为空！");
-			theform.name.focus();
-			return false;
-		}
-		return true;
-	}
-</script>
 <style type="text/css">
 .form-group .input-group {
 	margin-top: 5px;

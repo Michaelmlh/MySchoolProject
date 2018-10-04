@@ -6,32 +6,13 @@
 <%@ page import="java.sql.*" import="db.Db"%>
 <%@ page import="entity.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>student</title>
-<style type="text/css">
-div{
-	overflow: auto;
-}
-body{
-	height: 750px;
-	position: relative;
-}
-body {
-	background-image: url(../../images/bg.jpg);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	background-attachment: fixed; /* 自动调整 */
-}
-.buton{
-	display: inline-block;
-	position: relative;
-	top: 10px;
-}
-</style>
+<title>宿舍卫生</title>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/body.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/table.css">
 </head>
 <body>
 <% 权限 user=((权限)session.getAttribute("user"));%>
-<div style="width: 100%;height: 100%;">
-<div  style="width: 100%;height: 50%;">
 <table border="1" align="center" width="100%" cellpadding="0" cellspacing="0">
   	<caption>
     	<H2>宿舍卫生信息管理</H2>
@@ -55,7 +36,7 @@ body {
  	 </tr>
 	<% 
             Db conn=new Db();
-	   		request.setCharacterEncoding("gb2312");
+	   		request.setCharacterEncoding("utf-8");
     		String strSql="";
 			ResultSet rs=null;
 			strSql="select * from dbo.宿舍卫生";
@@ -78,20 +59,18 @@ body {
 					<td height="22" align="center"><%=("1".equals(rs.getString("是否整改"))?"是":"否")%></td>
 					<%if(user.canDo(2)){//卫生检查员及以上可操作 %>
 					<td height="22" align="center">
-						<div class="buton"><form action="update.jsp?no=<%=rs.getString("宿舍号")%>&checkDate=<%=rs.getString("检查日期") %>" method="post" target="control"><input type="submit" value="修改"></form></div>
-						<div class="buton"><form action="../../DelEnv?no=<%=rs.getString("宿舍号")%>&checkDate=<%=rs.getString("检查日期")%>" method="post"  target="control"><input type="submit" value="删除"></form></div>
+						<form style="display: inline-block; margin-top: 0px;margin-bottom: 0px;" action="update.jsp?no=<%=rs.getString("宿舍号")%>&checkDate=<%=rs.getString("检查日期") %>" method="post" target="control"><input type="submit" class="tablebutton" value="修改"></form>
+						<form style="display: inline-block; margin-top: 0px;margin-bottom: 0px;" action="../../DelEnv?no=<%=rs.getString("宿舍号")%>&checkDate=<%=rs.getString("检查日期")%>" method="post"  target="control"><input type="submit" class="tablebutton" value="删除"></form>
 					</td>
 					<%} %>
 				</tr>
 	<%		} //while%>
 </table>
-</div>
+
 <%if(user.canDo(2)){//卫生检查员及以上可操作 %>
-<div class="buton"><form action="register.jsp" target="control"><input type="submit" value="添加检查记录"></form></div>
+<div class="buton"><form action="register.jsp"><input type="submit" value="添加检查记录"></form></div>
 <%} %>
-<div  style="width: 100%;height: 50%;border:1px dotted black ;box-sizing: border-box;">
-<iframe name="control" frameborder="0" height="100%" width="100%"></iframe>
-</div>
-</div>
+
+
 </body>
 </html>

@@ -40,7 +40,6 @@ public class StuInfo extends HttpServlet {
 		if(user!=null){
 		Answer answer=new Answer();
 		ResultSet rs=null;
-		//����Ӧ�������
 		Db db=new Db();
 		ArrayList<学生> stu=new ArrayList<学生>();
 		ArrayList<班级> clas=new ArrayList<班级>();
@@ -60,7 +59,6 @@ public class StuInfo extends HttpServlet {
 			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
-		//��ȡ����������������
 		
 		try {
 			sql="select 宿舍.*from 学生,宿舍 where 学生.宿舍号=宿舍.宿舍号 and 学生.学号="+user.getLogin();
@@ -84,7 +82,6 @@ public class StuInfo extends HttpServlet {
 			answer.setRoom(room);
 			answer.setStu(stu);
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
 		session.setAttribute("answer", answer);

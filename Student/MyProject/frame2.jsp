@@ -109,7 +109,7 @@
 					<li>信息查询</li>
 					<li><a href="StuInfo" target="_blank">个人详情</a></li>
 					<li><a href="1Query/bulkQuery.html" target="_blank">批量查询</a></li>
-					<li><a href="1Query/statisticQuery.html" target="main">统计查询</a>
+					<li><a href="1Query/statisticQuery.html" target="_blank">统计查询</a>
 					</li>
 				</ul>
 				<%

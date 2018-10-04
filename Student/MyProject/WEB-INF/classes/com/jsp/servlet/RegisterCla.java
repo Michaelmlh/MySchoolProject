@@ -49,6 +49,7 @@ public class RegisterCla extends HttpServlet {
 				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		}
 	}
 

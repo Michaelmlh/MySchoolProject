@@ -7,16 +7,7 @@
 <%@ page import="entity.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>class</title>
-<style type="text/css">
-div{
-	overflow: auto;
-}
-body{
-	height: 750px;
-	position: relative;
-}
 
-</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/body.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/table.css">
 </head>
@@ -57,7 +48,7 @@ body{
 	<%		} //while%>
 </table>
 <%if(user.canDo(1)){//仅系统管理员可查看 %>
-<div class="buton"><form action="${pageContext.request.contextPath }/2Control/rooms/register.jsp" target="control"><input type="submit" value="注册新宿舍"></form></div>
+<div class="buton"><form action="${pageContext.request.contextPath }/2Control/rooms/register.jsp" ><input type="submit" value="注册新宿舍"></form></div>
 <%} %>
 
 </body>

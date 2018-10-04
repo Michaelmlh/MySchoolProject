@@ -35,7 +35,7 @@ public class UpdEnv extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		session.setAttribute("rs", false);
+		response.setContentType("text/html; charset=utf-8");
 		String sql="update 宿舍卫生  set 用电与气味=?,地面=?,书桌=?,床铺=?,洗漱台=?,卫生间=?,阳台=?,备注=?,是否整改=? where 宿舍号=? and 检查日期=? ";
 		Db db=new Db();
 		try {
@@ -51,15 +51,14 @@ public class UpdEnv extends HttpServlet {
 			presta.setInt(9,Integer.parseInt(request.getParameter("isChange")));
 			presta.setString(10,request.getParameter("no"));
 			presta.setString(11,request.getParameter("checkDate"));
-			if(presta.executeUpdate()==1)//�޸ĳɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				response.getWriter().print("<script>alert(\"修改成功\");location.href=\"2Control/environments/environment.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+				response.getWriter().print("<script>alert(\"修改失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
+			response.getWriter().print("<script>alert(\"修改失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
 		}
-		request.getRequestDispatcher("/2Control/environments/updRS.jsp").forward(request, response);
 	}
 
 	/**

@@ -35,12 +35,10 @@ public class RegisterEnv extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		session.setAttribute("rs", false);
+		response.setContentType("text/html; charset=utf-8");
 		String sqlStu="insert into 宿舍卫生  values (?,?,?,?,?,?,?,?,?,?,?)";
 		Db db=new Db();
-		String checkDate=request.getParameter("checkYear")+"-"+request.getParameter("checkMonth")+"-"+request.getParameter("checkDay");
-//		System.out.println(checkDate);
-//		System.out.println(birthDate);
+		String checkDate = request.getParameter("checkDate");
 		try {
 			PreparedStatement presta = db.PreparedStatement (sqlStu);
 			presta.setString(1,request.getParameter("no"));
@@ -54,15 +52,15 @@ public class RegisterEnv extends HttpServlet {
 			presta.setString(9,request.getParameter("sun"));
 			presta.setString(10,request.getParameter("note"));
 			presta.setString(11,request.getParameter("isChange"));
-			if(presta.executeUpdate()==1)//��ӳɹ�
-				session.setAttribute("rs", true);
+			if(presta.executeUpdate()==1)
+				response.getWriter().print("<script>alert(\"注册成功\");location.href=\"2Control/environments/environment.jsp\";</script>");
 			else
-				session.setAttribute("rs", false);
+				response.getWriter().print("<script>alert(\"注册失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
+			response.getWriter().print("<script>alert(\"注册失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
 		}
-		request.getRequestDispatcher("/2Control/environments/registerRS.jsp").forward(request, response);
+		
 	}
 
 	/**

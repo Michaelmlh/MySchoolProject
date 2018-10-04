@@ -8,6 +8,7 @@
 <%@ page import="entity.*" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>UserInformation</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/body.css">
 </head>
 <body>
 <center>

@@ -13,6 +13,11 @@
 	href="${pageContext.request.contextPath }/resources/css/body.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/boostrap/css/bootstrap.min.css">
+<style type="text/css">
+.form-group .input-group {
+	margin-top: 5px;
+}
+</style>
 </head>
 <%
 	Db conn = new Db();
@@ -41,17 +46,18 @@
 							readonly="readonly" value="<%=no%>">
 					</div>
 					<div class="input-group">
-						<span class="input-group-addon">宿&nbsp;舍&nbsp;容&nbsp;量</span>
-						<input type="text" name="Name" class="form-control"
-							 value="<%=name%>">
+						<span class="input-group-addon">宿&nbsp;舍&nbsp;容&nbsp;量</span> <input
+							type="text" name="Name" class="form-control" value="<%=name%>">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-6">
-						<input type="reset" style="margin: 0 30%" class="btn btn-info btn-sm" value="重置">
+						<input type="reset" style="margin: 0 30%"
+							class="btn btn-info btn-sm" value="重置">
 					</div>
 					<div class="col-xs-6">
-						<input type="submit" style="margin: 0 30%" class="btn btn-info btn-sm" value="提交">
+						<input type="submit" style="margin: 0 30%"
+							class="btn btn-info btn-sm" value="提交">
 					</div>
 				</div>
 			</form>

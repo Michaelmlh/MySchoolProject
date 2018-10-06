@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import db.DBUtils;
-import entity.权限;
+import entity.Limit;
 
 /**
  * Servlet implementation class Updpsd
@@ -44,23 +44,23 @@ public class Updpsd extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
-		权限  user = (权限) session.getAttribute("user");
+		Limit  user = (Limit) session.getAttribute("user");
 		String password = request.getParameter("password");
-		String loginname = user.getLogin();
+		String loginname = user.getUsername();
 		String newpassword = request.getParameter("newpassword");
 		PrintWriter out = response.getWriter();
-		String sql = "select count(*) from 权限 where 登录名 = ? and 密码 = ?";
+		String sql = "select count(*) from Limit where username = ? and password = ?";
 		Integer flag = (Integer) DBUtils.getOneColum(sql, loginname, password);
 		if ( flag == 1 ) {
-			String updatesql = "update 权限  set 密码 = ? where 登录名 = ?";
+			String updatesql = "update Limit  set password = ? where username = ?";
 			Integer flag2 = DBUtils.executeUpdate(updatesql, newpassword, loginname);
 			if( flag2 == 1) { //修改密码成功
 				session.invalidate();
 //				response.sendRedirect(request.getContextPath() + "/frame1.jsp");
-				out.println("<script>alert(\"修改成功！\");location.href=\"frame2.jsp\";</script>");
+				out.println("<script>alert(\"修改成功！\");location.href=\"frame1.jsp\";</script>");
 			}
 		}else {
-			out.println("<script>alert(\"请输入正确的密码\");location.href=\"frame2.jsp\";</script>");
+			out.println("<script>alert(\"请输入正确的密码\");location.href=\"frame1.jsp\";</script>");
 		}
 	}
 

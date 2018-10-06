@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -33,20 +34,16 @@ public class DelStu extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
-		session.setAttribute("rs", false);
-		Db db=new Db();
-		try {
-			PreparedStatement presta = db.PreparedStatement ("delete from 学生  where 学号=?");
-			presta.setString(1, request.getParameter("no"));
-			if(presta.executeUpdate()==1)
-				response.getWriter().println("<script>alert(\"修改成功\");location.href=\"2Control/students/student.jsp\";</script>");
-			else
-			response.getWriter().println("<script>alert(\"修改失败\");location.href=\"2Control/students/student.jsp\";</script>");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		response.setContentType("text/html; charset=utf-8");
+		String sql = "delete from Student  where studentid=?";
+		int rs = DBUtils.executeUpdate(sql, request.getParameter("no"));
+		/*			PreparedStatement presta = db.PreparedStatement ("delete from 学生  where 学号=?");
+		presta.setString(1, request.getParameter("no"));*/
+		if(rs==1)//ɾ���ɹ�
+			response.getWriter().println("<script>alert(\"删除成功\");location.href=\"2Control/students/student.jsp\";</script>");
+		else
+			response.getWriter().println("<script>alert(\"删除失败\");location.href=\"2Control/students/student.jsp\";</script>");
 	}
 
 	/**

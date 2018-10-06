@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -33,24 +34,20 @@ public class RegisterCla extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
-		String sql="insert into 班级  values (?,?)";
-		session.setAttribute("rs", false);
-		Db db=new Db();
-		try {
-			PreparedStatement presta = db.PreparedStatement (sql);
-			presta.setString(1,request.getParameter("no"));
-			presta.setString(2,request.getParameter("name"));
-			if(presta.executeUpdate()==1)
-				response.getWriter().print("<script>alert(\"注册成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
-			else
-				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		response.setContentType("text/html; charset=utf-8");
+		String sql="insert into Classes  values (?,?)";
+		int rs=DBUtils.executeUpdate(sql, request.getParameter("no"),request.getParameter("name"));
+/*			PreparedStatement presta = db.PreparedStatement (sql);
+		presta.setString(1,request.getParameter("no"));
+		presta.setString(2,request.getParameter("name"));*/
+		if(rs==1)
+			response.getWriter().print("<script>alert(\"注册成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
+		else
 			response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
-		}
+		
 	}
 
 	/**

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -38,20 +39,13 @@ public class UpdCla extends HttpServlet {
 		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=utf-8");
 		session.setAttribute("rs", false);
-		String sql="update 班级  set 班名=? where 班号=?";
-		Db db=new Db();
-		try {
-			PreparedStatement presta = db.PreparedStatement (sql);
-			presta.setString(1,request.getParameter("clasName"));
-			presta.setString(2,request.getParameter("clasNo"));
-			if(presta.executeUpdate()==1)
-				response.getWriter().print("<script>alert(\"修改成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
-			else
-				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		String sql="update Classes  set classname=? where classid=?";
+		int rs=DBUtils.executeUpdate(sql, request.getParameter("clasName"),request.getParameter("clasNo"));
+		
+		if(rs==1)
+			response.getWriter().print("<script>alert(\"修改成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
+		else
 			response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
-		}
 	}
 
 	/**

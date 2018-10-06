@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -36,19 +37,15 @@ public class DelRom extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		session.setAttribute("rs", false);
-		Db db=new Db();
-		try {
-			PreparedStatement presta = db.PreparedStatement ("delete from 宿舍  where 宿舍号=?");
-			presta.setString(1, request.getParameter("no"));
-			if(presta.executeUpdate()==1)//ɾ���ɹ�
-				session.setAttribute("rs", true);
-			else
-				session.setAttribute("rs", false);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		request.getRequestDispatcher("/2Control/rooms/delete.jsp").forward(request, response);
+		response.setContentType("text/html; charset=utf-8");
+		String sql = "delete from Dorm  where dormid=?";
+		/*			PreparedStatement presta = db.PreparedStatement ("delete from 宿舍  where 宿舍号=?");
+					presta.setString(1, request.getParameter("no"));*/
+		int rs = DBUtils.executeUpdate(sql, request.getParameter("no"));
+		if(rs==1)
+			response.getWriter().println("<script>alert(\"删除成功\");location.href=\"2Control/rooms/room.jsp\";</script>");
+		else
+			response.getWriter().println("<script>alert(\"删除失败\");location.href=\"2Control/rooms/room.jsp\";</script>");
 	}
 
 	/**

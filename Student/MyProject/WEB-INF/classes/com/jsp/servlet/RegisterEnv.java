@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -36,31 +37,15 @@ public class RegisterEnv extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=utf-8");
-		String sqlStu="insert into 宿舍卫生  values (?,?,?,?,?,?,?,?,?,?,?)";
-		Db db=new Db();
-		String checkDate = request.getParameter("checkDate");
-		try {
-			PreparedStatement presta = db.PreparedStatement (sqlStu);
-			presta.setString(1,request.getParameter("no"));
-			presta.setString(2,checkDate);
-			presta.setString(3,request.getParameter("E&S"));
-			presta.setString(4,request.getParameter("floor"));
-			presta.setString(5,request.getParameter("desk"));
-			presta.setString(6,request.getParameter("bed"));
-			presta.setString(7,request.getParameter("wash"));
-			presta.setString(8,request.getParameter("bathroom"));
-			presta.setString(9,request.getParameter("sun"));
-			presta.setString(10,request.getParameter("note"));
-			presta.setString(11,request.getParameter("isChange"));
-			if(presta.executeUpdate()==1)
-				response.getWriter().print("<script>alert(\"注册成功\");location.href=\"2Control/environments/environment.jsp\";</script>");
-			else
-				response.getWriter().print("<script>alert(\"注册失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		String sql="insert into Dormhealth  values (?,?,?,?,?,?,?,?,?,?,?)";
+		int rs=DBUtils.executeUpdate(sql, request.getParameter("no"),request.getParameter("checkDate"),
+				request.getParameter("E&S"),request.getParameter("floor"),request.getParameter("desk"),
+				request.getParameter("bed"),request.getParameter("wash"),request.getParameter("bathroom")
+				,request.getParameter("sun"),request.getParameter("note"),request.getParameter("isChange"));
+		if(rs==1)
+			response.getWriter().print("<script>alert(\"注册成功\");location.href=\"2Control/environments/environment.jsp\";</script>");
+		else
 			response.getWriter().print("<script>alert(\"注册失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
-		}
-		
 	}
 
 	/**

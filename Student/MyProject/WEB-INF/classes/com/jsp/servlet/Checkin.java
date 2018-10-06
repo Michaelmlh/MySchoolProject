@@ -55,17 +55,17 @@ public class Checkin extends HttpServlet implements javax.servlet.Servlet{
 		try {
 			rs=db.executeQuery(sql);
 			if(rs.next()){
-				if((i=rs.getInt(1))==1){//�����û����������û�����ת���������
+				if((i=rs.getInt(1))==1){//用户名已存在
 					session.setAttribute("username", username);
 					request.getRequestDispatcher("/01/ex/register_error.jsp").forward(request,response);
 				}
-				else if(i==0){//���û���ע����Ϣ�������ݿ⣬�����û�����ת��ע��ɹ�ҳ��
+				else if(i==0){//用户注册，构造各
 					String pwd=MyTools.toChinese(request.getParameter("key"));
 					String sex=MyTools.toChinese(request.getParameter("sex"));
 					String birthday=request.getParameter("birthYear")+"-"+request.getParameter("birthDay")+"-1";
 					String email=MyTools.toChinese(request.getParameter("Email"));
 					String[] love=(String[])request.getParameterValues("love");
-                   	//ʹ��get�����õ��� ��ѡ�� ����������toString �������ص�ֵΪ value ���Ե�ֵ
+                   	//ֵ
                    	String loves="";
                    	if(love!=null){
 	                   	for(int j=0;j<love.length;j++){

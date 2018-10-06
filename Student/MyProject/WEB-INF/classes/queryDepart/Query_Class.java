@@ -17,7 +17,7 @@ public class Query_Class {
 	}
 	public void init() throws Exception{
 		sql_server = new Db();		
-		String sql = "select count(distinct 班号) from class_depart";		
+		String sql = "select count(distinct 班号) from class_depart";//��ѯ�ж��ٰ�		
 		ResultSet rs = sql_server.executeQuery(sql);	
 		if(rs.next()) {
 			map = new HashMap<String , ArrayList<String>>(Integer.parseInt(rs.getString(1)));
@@ -28,6 +28,7 @@ public class Query_Class {
 		rs.close();
 		String sql2 = "select * from class_depart order by 班号";
 		rs = sql_server.executeQuery(sql2);
+		//�����������map����
 		while(rs.next()) {
 			ArrayList<String> list = new ArrayList<String>();
 			list.add(rs.getString(2).trim());
@@ -37,6 +38,7 @@ public class Query_Class {
 			});
 		}		
 	}
+	//ȫ�����,����Ҫ�������
 	public Map<String , ArrayList<String>> getAllRandomMap() {
 		Map<String , ArrayList<String>> newmap = new HashMap<>(map);
 		newmap.replaceAll((key,value)->{
@@ -45,6 +47,7 @@ public class Query_Class {
 			else
 			{
 				ArrayList<String> list = new ArrayList<>();
+				//����õ��ظ��� �����
 				String one = value.remove((int)(Math.random() * value.size()));
 				String two = value.remove((int)(Math.random() * value.size()));
 				value.add(one);value.add(two);
@@ -54,6 +57,7 @@ public class Query_Class {
 		});
 		return newmap;				
 	}
+	//ָ��Ҫ��ĳ����������ᣬ�������
 	public Map<String , ArrayList<String>> getAppointClassRandomMap(ArrayList<String> class_nums) {
 		Map<String , ArrayList<String>> newmap = new HashMap<>(map);
 		newmap.replaceAll((key,value)->{
@@ -65,6 +69,7 @@ public class Query_Class {
 			else
 			{
 				ArrayList<String> list = new ArrayList<>();
+				//����õ��ظ��� �����
 				String one = value.remove((int)(Math.random() * value.size()));
 				String two = value.remove((int)(Math.random() * value.size()));
 				value.add(one);value.add(two);
@@ -74,6 +79,7 @@ public class Query_Class {
 		});
 		return newmap;				
 	}
+	//ָ��Ҫ��ĳ�������ᣬ�������
 	public Map<String , ArrayList<String>> getAppointDepartRandomMap(ArrayList<String> Depart_nums) {
 		Map<String , ArrayList<String>> newmap = new HashMap<>(map);
 		newmap.replaceAll((key,value)->{			
@@ -107,6 +113,7 @@ public class Query_Class {
 		});
 		return newmap;				
 	}
+	//ĳ�����࣬ĳ��������ͬʱָ��
 	public Map<String , ArrayList<String>> getAppointClassAndDepartRandomMap(ArrayList<String> class_nums,ArrayList<String> Depart_nums) {
 		Map<String , ArrayList<String>> newmap = new HashMap<>(map);
 		newmap.replaceAll((key,value)->{	

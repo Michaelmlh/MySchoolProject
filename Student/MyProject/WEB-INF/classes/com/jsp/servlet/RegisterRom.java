@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -36,25 +37,20 @@ public class RegisterRom extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
-		String sql = "insert into 宿舍  values (?,?)";
-		session.setAttribute("rs", false);
-		Db db = new Db();
-		try {
-			PreparedStatement presta = db.PreparedStatement(sql);
-			presta.setString(1, request.getParameter("no"));
-			presta.setString(2, request.getParameter("name"));
-			if (presta.executeUpdate() == 1)
-				response.getWriter()
-						.print("<script>alert(\"注冊成功！\");location.href=\"2Control/rooms/room.jsp\";</script>");
-			else
-				response.getWriter()
-						.print("<script>alert(\"注冊失败！\");location.href=\"2Control/rooms/room.jsp\";</script>");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		response.setContentType("text/html; charset=utf-8");
+		String sql = "insert into dorm  values (?,?)";
+		int rs = DBUtils.executeUpdate(sql, request.getParameter("no"), request.getParameter("name"));
+		/*
+		 * PreparedStatement presta = db.PreparedStatement (sql);
+		 * presta.setString(1,request.getParameter("no"));
+		 * presta.setString(2,request.getParameter("name"));
+		 */
+		if (rs == 1)
+			response.getWriter().print("<script>alert(\"注冊成功！\");location.href=\"2Control/rooms/room.jsp\";</script>");
+
+		else
 			response.getWriter().print("<script>alert(\"注冊失败！\");location.href=\"2Control/rooms/room.jsp\";</script>");
-		}
 	}
 
 	/**

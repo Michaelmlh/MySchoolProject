@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 
 /**
@@ -35,21 +36,17 @@ public class DelEnv extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		session.setAttribute("rs", false);
-		Db db=new Db();
-		System.out.println(request.getParameter("checkDate"));
-		try {
-			PreparedStatement presta = db.PreparedStatement ("delete from 宿舍卫生  where 宿舍号=? and 检查日期=?");
-			presta.setString(1, request.getParameter("no"));
-			presta.setString(2, request.getParameter("checkDate"));
-			if(presta.executeUpdate()==1)
-				session.setAttribute("rs", true);
-			else
-				session.setAttribute("rs", false);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		request.getRequestDispatcher("/2Control/environments/delete.jsp").forward(request, response);
+		response.setContentType("text/html; charset=utf-8");
+		/*System.out.println(request.getParameter("checkDate"));*/
+		String sql = "delete from Dormhealth  where dormid=? and checkdate=?";
+		int rs = DBUtils.executeUpdate(sql, request.getParameter("no"),request.getParameter("checkDate"));
+/*			PreparedStatement presta = db.PreparedStatement ("delete from 宿舍卫生  where 宿舍号=? and 检查日期=?");
+		presta.setString(1, request.getParameter("no"));
+		presta.setString(2, request.getParameter("checkDate"));*/
+		if(rs==1)
+			response.getWriter().print("<script>alert(\"删除成功\");location.href=\"2Control/environments/environment.jsp\";</script>");
+		else
+			response.getWriter().print("<script>alert(\"删除失败\");location.href=\"2Control/environments/environment.jsp\";</script>");
 	}
 
 	/**

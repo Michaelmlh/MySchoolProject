@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="entity.权限"%>
+<%@ page import="entity.Limit"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%
-		权限 user = ((权限) session.getAttribute("user"));
+		Limit user = ((Limit) session.getAttribute("user"));
 	%>
 	<div class="container">
 		<div class="navbar navbar-default">
@@ -27,7 +27,7 @@
 					if (user != null) { //登录后操作
 				%>
 				<li><span style="line-height: 300%"><font size="5"
-						face="楷体">&nbsp;欢迎你，<%=user.getUser()%>&nbsp;
+						face="楷体">&nbsp;欢迎你，<%=user.getName() %>&nbsp;
 					</font></span></li>
 				<li><a href="StuInfo" target="main">用户信息</a></li>
 				<li><a href="exit.jsp">退出登陆</a></li>
@@ -54,9 +54,6 @@
 						<li><a href="1Query/bulkQuery.html" target="_blank">批量查询</a></li>
 						<li><a href="1Query/statisticQuery.html" target="main">统计查询</a>
 						</li>
-						
-						</li>
-						
 					</ul></li>
 				<%
 					if (user.canDo(3)) {//班级负责人及以上权限能操作
@@ -66,7 +63,6 @@
 						<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="random.html" target="_blank">检查宿舍</a></li>
 						<li><a href="2Control/students/student.jsp" target="_blank">学生管理</a>
 						</li>
 						<li><a href="2Control/classes/class.jsp" target="_blank">班级管理</a>
@@ -121,7 +117,6 @@
 				%>
 				<ul>
 					<li>信息管理</li>
-					<li><a href="random.html"  target="_blank">检查宿舍</a>
 					<li><a href="2Control/students/student.jsp" target="_blank">学生管理</a>
 					</li>
 					<li><a href="2Control/classes/class.jsp" target="_blank">班级管理</a>

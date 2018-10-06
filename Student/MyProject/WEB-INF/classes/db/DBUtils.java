@@ -12,12 +12,12 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import entity.limit;
-import entity.È¨ÏÞ;
+import entity.Limit;
+import entity.Student;
 
 public class DBUtils {
 	/**
-	 * Ê¹ÓÃÊý¾Ý¿âÁ¬½Ó³Ø
+	 * Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ó³ï¿½
 	 */
 	private static DataSource dataSource = null;
 	static {
@@ -48,7 +48,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * des µÃµ½Êý¾Ý¿âµÄÁ¬½Ó
+	 * des ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @return
 	 * @throws Exception
@@ -58,7 +58,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * @des ¹Ø±ÕÊý¾Ý¿âµÄÁ¬½Ó
+	 * @des ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param conn
 	 * @param pre
 	 * @param rs
@@ -86,9 +86,9 @@ public class DBUtils {
 
 	/**
 	 * 
-	 * @param sqlÓï¾ä£¨ÔöÉ¾¸Ä£©
-	 * @param ÈÎÒâ¶à¸ö²ÎÊý
-	 * @return ÊÜÓ°ÏìµÄÌõÊý
+	 * @param sqlï¿½ï¿½ä£¨ï¿½ï¿½É¾ï¿½Ä£ï¿½
+	 * @param ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @return ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @throws Exception
 	 */
 	public static int executeUpdate(String sql, Object... args) {
@@ -111,7 +111,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * ½«Ò»¸ö¶ÔÏó²åÈëµ½Êý¾Ý¿âÖÐ
+	 * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
 	 * 
 	 * @param obj
 	 * @return
@@ -145,9 +145,9 @@ public class DBUtils {
 
 	/**
 	 * 
-	 * @param sqlÓï¾ä£¨ÔöÉ¾¸Ä£©
-	 * @param ÈÎÒâ¶à¸ö²ÎÊý
-	 * @return ÊÜÓ°ÏìµÄÌõÊý
+	 * @param sqlï¿½ï¿½ä£¨ï¿½ï¿½É¾ï¿½Ä£ï¿½
+	 * @param ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @return ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @throws Exception
 	 */
 	public static int executeUpdateSupportTransaction(Connection conn, String sql, Object... args) {
@@ -168,7 +168,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * @des ²åÈëÊý¾Ý£¬·µ»ØµÄÊÇ×ÔÔö³¤Ö÷¼üµÄid
+	 * @des ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
 	 * @param sql
 	 * @param args
 	 * @return
@@ -196,7 +196,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * @require javabeanÖÐµÄÊôÐÔÃû±ØÐëºÍÊý¾Ý±íÖÐµÄ×Ö¶ÎÃûÍêÈ«Ò»Ñù
+	 * @require javabeanï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½Ðµï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½È«Ò»ï¿½ï¿½
 	 * @param c
 	 * @param sql
 	 * @param args
@@ -217,7 +217,7 @@ public class DBUtils {
 			rs = pre.executeQuery();
 			if (rs.next()) {
 				entity = c.newInstance();
-				// »ñµÃÔªÊý¾Ý,°üº¬½á¹û¼¯µÄÁÐÊý£¬ÊôÐÔÃû£¬ÒÔ¼°±ðÃûµÈÐÅÏ¢¡£
+				// ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 				ResultSetMetaData md = rs.getMetaData();
 				int columnCount = md.getColumnCount();
 				for (int i = 1; i <= columnCount; i++) {
@@ -238,7 +238,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * @require javabeanÖÐµÄÊôÐÔÃû±ØÐëºÍÊý¾Ý±íÖÐµÄ×Ö¶ÎÃûÍêÈ«Ò»Ñù
+	 * @require javabeanï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½Ðµï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½È«Ò»ï¿½ï¿½
 	 * @param c
 	 * @param sql
 	 * @param args
@@ -260,7 +260,7 @@ public class DBUtils {
 
 			while (rs.next()) {
 				T entity = c.newInstance();
-				// »ñµÃÔªÊý¾Ý,°üº¬½á¹û¼¯µÄÁÐÊý£¬ÊôÐÔÃû£¬ÒÔ¼°±ðÃûµÈÐÅÏ¢¡£
+				// ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 				int columnCount = md.getColumnCount();
 				for (int i = 1; i <= columnCount; i++) {
 					String key = md.getColumnName(i);
@@ -285,7 +285,7 @@ public class DBUtils {
 	 * 
 	 * @param sql
 	 * @param args
-	 * @return µÃµ½Ä³Ò»ÁÐµÄÖµÈçcount(*),max(),min()Ö®ÀàµÄ
+	 * @return ï¿½Ãµï¿½Ä³Ò»ï¿½Ðµï¿½Öµï¿½ï¿½count(*),max(),min()Ö®ï¿½ï¿½ï¿½
 	 */
 	public static Object getOneColum(String sql, Object... args) {
 		Connection conn = null;
@@ -313,7 +313,7 @@ public class DBUtils {
 	 * 
 	 * @param sql
 	 * @param args
-	 * @return µÃµ½Ä³ÕÅÍ¼Æ¬
+	 * @return ï¿½Ãµï¿½Ä³ï¿½ï¿½Í¼Æ¬
 	 */
 	public static Blob getOnePic(String sql, Object... args) {
 		Connection conn = null;
@@ -338,7 +338,9 @@ public class DBUtils {
 	}
 	public static void main(String[] args) throws ClassNotFoundException {
 		Class.forName("db.DBUtils");
-		String sql = "select µÇÂ¼Ãû as loginname,ÃÜÂë  as password,ÐÕÃû as username,È¨ÏÞ¼¶±ð as level from È¨ÏÞ   where µÇÂ¼Ãû = ?";
-		System.out.println( getOneData(limit.class, sql, 1) );
+		/*String sql = "select ï¿½ï¿½Â¼ï¿½ï¿½ as loginname,ï¿½ï¿½ï¿½ï¿½  as password,ï¿½ï¿½ï¿½ï¿½ as username,È¨ï¿½Þ¼ï¿½ï¿½ï¿½ as level from È¨ï¿½ï¿½   where ï¿½ï¿½Â¼ï¿½ï¿½ = ?";
+		System.out.println( getOneData(Limit.class, sql, 1) );*/
+		String sql = "select * from Student,Classes  where  Student.classid=Classes.classid and Student.studentid=?";
+		System.out.println( getOneData(Student.class, sql, "202161001") );
 	}
 }

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+<%@page import="db.DBUtils"%>
 <html>
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" import="db.Db"%>
+<%@ page import="java.sql.*" %>
 <%@ page import="entity.*" %>
+<%@ page import="java.util.List" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/body.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/table.css">
@@ -26,7 +28,7 @@ body{
 </style>
 </head>
 <body>
-<% 权限 user=((权限)session.getAttribute("user"));%>
+<% Limit user=((Limit)session.getAttribute("user"));%>
 
 <%if(user.canDo(1)){//仅系统管理员可查看 %>
 <div class="buton"><form action="register.jsp"><input type="submit" value="注册新学生"></form></div>
@@ -44,22 +46,19 @@ body{
 		 <%} %>
  	 </tr>
 	<% 
-            Db conn=new Db();
-	   		request.setCharacterEncoding("utf-8");
-    		String strSql="";
-			ResultSet rs=null;
-			strSql="select * from dbo.学生";
-			//执行查询，查询语句strSql是该方法的参数			
-	    	 rs=conn.executeQuery(strSql);
+			request.setCharacterEncoding("utf-8");
+    		String sql="select * from dbo.Student";
+			//执行查询，得到结果集list<Student>		
+			List<Student> stu=DBUtils.getListData(Student.class, sql);
 			//判断结果是否为空
-	    	for(int i=0;rs.next();i++){%>
+	    	for(Student t:stu){// i=0;rs.next();i++%>
 				<tr>
-					<td height="22" align="center"><%=rs.getString("学号")+""%></td>
-					<td height="22" align="center"><%=rs.getString("姓名")+""%></td>
-					<td height="22" align="center"><%=rs.getString("联系方式")+""%></td>
+					<td height="22" align="center"><%=t.getStudentid()%></td>
+					<td height="22" align="center"><%=t.getName()%></td>
+					<td height="22" align="center"><%=t.getContactway()%></td>
 					<%if(user.canDo(1)){//仅系统管理员可操作 %>
 					<td height="22" align="center">
-						<!-- <div class="buton"> --><form action="update.jsp?no=<%=rs.getString("学号")%>" method="post"><input class="tablebutton" type="submit" value="详情"></form><!-- </div> -->
+						<!-- <div class="buton"> --><form action="update.jsp?no=<%=t.getStudentid()%>" method="post"><input class="tablebutton" type="submit" value="详情"></form><!-- </div> -->
 						
 					</td>
 					<%} %>

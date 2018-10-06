@@ -7,9 +7,9 @@ public class Db {
 	private Statement stateMent=null;
 	public Db() {
 		String driverName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
-		String dbURL="jdbc:sqlserver://localhost:1433;DatabaseName=Student";
-		String userName="sa";
-		String userPwd="chentailiang.123";
+		String dbURL="jdbc:sqlserver://localhost:1433;DatabaseName=myproject";
+		String userName="guest06";
+		String userPwd="mlh12345";
 		try {
 			Class.forName(driverName);
 			dbConn=DriverManager.getConnection(dbURL,userName,userPwd);

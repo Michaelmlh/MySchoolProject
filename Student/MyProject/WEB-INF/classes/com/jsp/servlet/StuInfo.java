@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBUtils;
 import db.Db;
 import entity.*;
 
@@ -36,54 +38,31 @@ public class StuInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		权限 user=(权限) session.getAttribute("user");
+		Limit user=( Limit) session.getAttribute("user");
 		if(user!=null){
 		Answer answer=new Answer();
 		ResultSet rs=null;
-		Db db=new Db();
-		ArrayList<学生> stu=new ArrayList<学生>();
-		ArrayList<班级> clas=new ArrayList<班级>();
-		ArrayList<宿舍> room=new ArrayList<宿舍>();
-		ArrayList<宿舍卫生>list=new ArrayList<宿舍卫生>();
-		String sql="select * from 学生,班级  where  学生.班号=班级.班号 and 学生.学号="+user.getLogin();
-		try {
-			rs = db.executeQuery(sql);
-			
-			if(rs.next()){
-				stu.add(
-						new 学生(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5)
-								,rs.getDate(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10)));
-				clas.add(new 班级(rs.getString(11),rs.getString(12)));
-			}			
-		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
-			e.printStackTrace();
-		}
 		
-		try {
-			sql="select 宿舍.*from 学生,宿舍 where 学生.宿舍号=宿舍.宿舍号 and 学生.学号="+user.getLogin();
-			rs=db.executeQuery(sql);
-			if(rs.next()){
-				room.add(new 宿舍(rs.getString(1),rs.getInt(2)));
-			}
-			
-			sql="select 宿舍卫生.* from 学生,宿舍卫生 where 学生.宿舍号 = 宿舍卫生.宿舍号 and 学生.学号="+user.getLogin();
-			rs=db.executeQuery(sql);
-			while(rs.next()){
-				list.add(new 宿舍卫生(
-						rs.getString(1),rs.getString(11),rs.getDate(2),
-						new int[]{rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6)
-							,rs.getInt(7),rs.getInt(8),rs.getInt(9),rs.getInt(10)},
-						rs.getInt(12)
-						));
-			}
-			answer.setEn(list);
-			answer.setClas(clas);
-			answer.setRoom(room);
-			answer.setStu(stu);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		Db db=new Db();
+		List<Student> stu=new ArrayList<Student>();
+		List<Classes> clas=new ArrayList<Classes>();
+		List<Dorm> room=new ArrayList<Dorm>();
+		List<Dormhealth>list=new ArrayList<Dormhealth>();
+		//构造学生、班级信息
+		String sql="select * from Student,Classes  where  Student.classid=Classes.classid and Student.studentid=?";
+		stu.add(DBUtils.getOneData(Student.class, sql, user.getUsername()));
+		clas.add(DBUtils.getOneData(Classes.class, sql, user.getUsername()));
+		//构造宿舍信息
+		sql="select Dorm.* from Student,Dorm where Student.dormid=dorm.dormid and student.studentid=?";
+		room.add(DBUtils.getOneData(Dorm.class, sql,user.getUsername()));
+		//构造宿舍卫生信息
+		sql="select dormhealth.* from student,dormhealth  where student.dormid = dormhealth.dormid and student.studentid=?";
+		list.add(DBUtils.getOneData(Dormhealth.class, sql,user.getUsername()));
+		
+		answer.setEn(list);
+		answer.setClas(clas);
+		answer.setRoom(room);
+		answer.setStu(stu);
 		session.setAttribute("answer", answer);
 		}
 		response.sendRedirect(request.getContextPath()+"/1Query/userInfo.jsp");

@@ -54,6 +54,9 @@
 						<li><a href="1Query/bulkQuery.html" target="_blank">批量查询</a></li>
 						<li><a href="1Query/statisticQuery.html" target="main">统计查询</a>
 						</li>
+						
+						</li>
+						
 					</ul></li>
 				<%
 					if (user.canDo(3)) {//班级负责人及以上权限能操作
@@ -63,6 +66,7 @@
 						<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
+						<li><a href="random.html" target="_blank">检查宿舍</a></li>
 						<li><a href="2Control/students/student.jsp" target="_blank">学生管理</a>
 						</li>
 						<li><a href="2Control/classes/class.jsp" target="_blank">班级管理</a>
@@ -117,6 +121,7 @@
 				%>
 				<ul>
 					<li>信息管理</li>
+					<li><a href="random.html"  target="_blank">检查宿舍</a>
 					<li><a href="2Control/students/student.jsp" target="_blank">学生管理</a>
 					</li>
 					<li><a href="2Control/classes/class.jsp" target="_blank">班级管理</a>

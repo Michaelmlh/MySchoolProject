@@ -42,12 +42,11 @@ public class DelEnv extends HttpServlet {
 			PreparedStatement presta = db.PreparedStatement ("delete from 宿舍卫生  where 宿舍号=? and 检查日期=?");
 			presta.setString(1, request.getParameter("no"));
 			presta.setString(2, request.getParameter("checkDate"));
-			if(presta.executeUpdate()==1)//ɾ���ɹ�
+			if(presta.executeUpdate()==1)
 				session.setAttribute("rs", true);
 			else
 				session.setAttribute("rs", false);
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("/2Control/environments/delete.jsp").forward(request, response);

@@ -44,10 +44,10 @@ public class DelCla extends HttpServlet {
 			if(presta.executeUpdate()==1)//ɾ���ɹ�
 				response.getWriter().print("<script>alert(\"删除成功！\");location.href=\"2Control/classes/class.jsp\";</script>");
 			else
-				response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
+				response.getWriter().print("<script>alert(\"删除失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.getWriter().print("<script>alert(\"修改失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
+			response.getWriter().print("<script>alert(\"删除失败！\");location.href=\"2Control/classes/class.jsp\";</script>");
 		}
 	}
 

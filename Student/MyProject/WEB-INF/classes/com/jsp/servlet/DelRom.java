@@ -46,7 +46,6 @@ public class DelRom extends HttpServlet {
 			else
 				session.setAttribute("rs", false);
 		} catch (SQLException e) {
-			// TODO �Զ����ɵ� catch ��
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("/2Control/rooms/delete.jsp").forward(request, response);

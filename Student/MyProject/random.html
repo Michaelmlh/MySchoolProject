@@ -1,102 +1,148 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>按条件生成要查询的宿舍</title>
-    <style>
-        /* form {
+
+<meta charset="UTF-8">
+<title>按条件生成要查询的宿舍</title>
+<style>
+/* form {
             border: 1px solid black;
         } */
-        .form {
-            width: 50%;
-            margin: 0 auto;
-            margin-bottom: 10px;
-            position: relative;
-            /* border: 1px dotted black; */
-        }
-        .form div {
-            font-weight: 600;
-        }
-        .content{
-            border: 1px dotted black;
-            position:relative;
-            width: 50%;
-            
-            overflow: auto;
-            margin: 0 auto;
+.form {
+	width: 50%;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	position: relative;
+	/* border: 1px dotted black; */
+}
 
-        }
-    </style>
+.form div {
+	font-weight: 600;
+}
+
+.content {
+	position: relative;
+	width: 50%;
+	overflow: auto;
+	margin: 0 auto;
+	font-weight: 600;
+}
+</style>
+<link rel="stylesheet" href="resources/css/body.css">
+<link rel="stylesheet" href="resources/boostrap/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="form">
-        <div style="margin-bottom: 5px;">不做任何指定</div>
-        <button onclick="sendMsg(0)">随机生成宿舍号</button>
-    </div>
-    <div class="form">
-        <div>指定班级</div>
-        <form id="referClass">
-            <table>
-                <tr>
-                    <td>请输入班级号(格式形如'1,2')：</td>
-                    <td>
-                        <input type="text" name="class">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="button" value="随机生成宿舍号" onclick="sendMsg(1)">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <div class="form">
-        <div>指定宿舍</div>
-        <form id="referDepart">
-            <table>
-                <tr>
-                    <td>请输入宿舍号(格式形如'B130,B131')：</td>
-                    <td>
-                        <input type="text" name="depart">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="button" value="随机生成宿舍号" onclick="sendMsg(2)">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <div class="form">
-        <div>指定宿舍和班级</div>
-        <form id="referClassAndDepart">
-            <table>
-                <tr>
-                    <td>请输入班级号(格式形如'1,2')：</td>
-                    <td>
-                        <input type="text" name="class"> </td>
-                </tr>
-                <tr>
-                    <td>请输入宿舍号(格式形如'N01B001,N01B002')：</td>
-                    <td>
-                        <input type="text" name="depart">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="button" value="随机生成宿舍号" onclick="sendMsg(3)">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <div class="content">
+	<div class="container">
+		<div class="col-md-4 col-md-push-4">
+			<div class="form">
+				<div class="row">不做任何指定</div>
+				<div class="row">
+					<button onclick="sendMsg(0)">随机生成宿舍号</button>
+				</div>
+			</div>
+			<div class="form">
+				<div class="row">指定班级</div>
+				<form id="referClass">
+					<div class="row">请输入班级号(格式形如'1,2')：</div>
+					<div class="row">
+						<input type="text" name="class">
+					</div>
+					<div class="row">
+						<input type="button" value="随机生成宿舍号" onclick="sendMsg(1)">
+					</div>
+				</form>
+			</div>
+			<div class="form">
+				<div class="row">指定宿舍</div>
+				<form id="referDepart">
+					<div class="row">请输入宿舍号(格式形如'B130,B131')：</div>
+					<div class="row">
+						<input type="text" name="depart">
+					</div>
+					<div class="row">
+						<input type="button" value="随机生成宿舍号" onclick="sendMsg(2)">
+					</div>
 
-    </div>
-    <script>
+				</form>
+			</div>
+			<div class="form">
+				<div class="row">指定宿舍和班级</div>
+				<form id="referClassAndDepart">
+					<div class="row">请输入班级号(格式形如'1,2')：</div>
+					<div class="row">
+						<input type="text" name="class">
+					</div>
+					<div class="row">请输入宿舍号(格式形如'N01B001,N01B002')：</div>
+					<div class="row">
+						<input type="text" name="depart">
+					</div>
+					<div class="row">
+						<input type="button" value="随机生成宿舍号" onclick="sendMsg(3)">
+					</div>
+
+				</form>
+			</div>
+			<div class="row content"></div>
+		</div>
+	</div>
+
+	<!-- <div class="form">
+		<div style="margin-bottom: 5px;">不做任何指定</div>
+		<button onclick="sendMsg(0)">随机生成宿舍号</button>
+	</div>
+	<div class="form">
+		<div>指定班级</div>
+		<form id="referClass">
+			<table>
+				<tr>
+					<td>请输入班级号(格式形如'1,2')：</td>
+					<td><input type="text" name="class"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="button" value="随机生成宿舍号"
+						onclick="sendMsg(1)"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="form">
+		<div>指定宿舍</div>
+		<form id="referDepart">
+			<table>
+				<tr>
+					<td>请输入宿舍号(格式形如'B130,B131')：</td>
+					<td><input type="text" name="depart"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="button" value="随机生成宿舍号"
+						onclick="sendMsg(2)"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="form">
+		<div>指定宿舍和班级</div>
+		<form id="referClassAndDepart">
+			<table>
+				<tr>
+					<td>请输入班级号(格式形如'1,2')：</td>
+					<td><input type="text" name="class"></td>
+				</tr>
+				<tr>
+					<td>请输入宿舍号(格式形如'N01B001,N01B002')：</td>
+					<td><input type="text" name="depart"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="button" value="随机生成宿舍号"
+						onclick="sendMsg(3)"></td>
+				</tr>
+			</table>
+		</form> -->
+
+	</div>
+
+	<script>
         //限定输入字符串格式
         var reg_class = /^(\d+,)*(\d+)$/;
         var reg_depart = /^(([NE]\d+[AB][1-6][0-4]\d),)*(([NE]\d+[AB][1-6][0-4]\d))$/i; 
@@ -110,8 +156,10 @@
                 if (xhr.status == 200) {
                     var content = document.querySelector(".content");
                     var target = xhr.response;
-                    content.innerHTML = "<b>要查的宿舍为：</b>"
+                    content.innerHTML = "<b>要查的宿舍为：</b>";
+                    console.log( target );
                     for(var name in target){
+                    	
                         content.innerHTML += "<br>班号：" + name + "<br>宿舍号：";
                         for(var i = 0; i < target[name].length; i ++){
                             content.innerHTML += target[name][i] + "  "; 
